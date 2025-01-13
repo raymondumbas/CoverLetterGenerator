@@ -1,2 +1,2 @@
 # CoverLetterGenerator
-Python Desktop Application to generate custom cover letters.
+This project allows users to generate personalized cover letters by filling out a simple form in the terminal. Users are prompted to enter details such as the position title, company name, and a paragraph prompt. The application then sends the paragraph prompt to the Google PaLM API for editing and combines the input into a template. The final cover letter is converted into a downloadable PDF, ready for printing or submission.

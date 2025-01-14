@@ -1,4 +1,5 @@
 from datetime import datetime
+from fpdf import FPDF
 
 print("Cover Letter Generator")
 print("")
@@ -17,6 +18,8 @@ companyName = input()
 current_date = datetime.now()
 formatted_date = current_date.strftime("%B %d, %Y")
 
+
+# Final Formatted Output
 finalOutput = f"""Raymond Umbas
 (760) 717-6641
 raymond.umbas@gmail.com
@@ -42,5 +45,9 @@ Sincerely,
 Raymond Umbas
 """
 
-print(finalOutput)
+# Initialize PDF object
+pdf = FPDF(orientation="P", unit="mm", format="A4")
+pdf.add_page()
+pdf.set_font("Times", size=12)
+
 

@@ -76,7 +76,7 @@ pdf.set_font("Arial", size=12)
 pdf.multi_cell(0, 8, final_cv)
 
 # Save the PDF
-output_path = "./outputs/RaymondUmbasCV{companyName}.pdf"
+output_path = f"./outputs/RaymondUmbasCV{companyName}.pdf"
 pdf.output(output_path)
 
 print(f"PDF saved as {output_path}")

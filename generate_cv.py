@@ -73,7 +73,7 @@ pdf.add_page()
 pdf.set_font("Arial", size=12)
 
 # Write the content (handles multiline text)
-pdf.multi_cell(0, 8, final_cv)
+pdf.multi_cell(0, 7, final_cv)
 
 # Save the PDF
 output_path = f"./outputs/RaymondUmbasCV{companyName}.pdf"

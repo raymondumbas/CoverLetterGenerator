@@ -38,7 +38,7 @@ and meets the 360 to 380 character count. The paragraph should be ready for me t
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-1.5-flash")
 response = model.generate_content(initialPrompt)
-edittedParagraph = response.text
+edittedParagraph = response.text.strip()
 
 # Final Formatted Output
 final_cv = f"""Raymond Umbas
@@ -76,7 +76,7 @@ pdf.set_font("Arial", size=12)
 pdf.multi_cell(0, 8, final_cv)
 
 # Save the PDF
-output_path = "RaymondUmbasCV{companyName}.pdf"
+output_path = "./outputs/RaymondUmbasCV{companyName}.pdf"
 pdf.output(output_path)
 
 print(f"PDF saved as {output_path}")

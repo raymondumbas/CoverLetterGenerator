@@ -1,5 +1,9 @@
 from datetime import datetime
 from fpdf import FPDF
+import google.generativeai as genai
+
+with open("api_key.txt", "r") as file:
+    api_key = file.read().strip()  # Strip removes any extra whitespace or newlines
 
 print("Cover Letter Generator")
 print("")
@@ -18,9 +22,26 @@ companyName = input()
 current_date = datetime.now()
 formatted_date = current_date.strftime("%B %d, %Y")
 
+# Get Custom Paragraph
+print("What interests you about this specific company?")
+initialParagraph = input()
+
+initialPrompt = f"""This is a paragraph from a cover letter I am writing for a job application to {companyName} as a {positionTitle}.: 
+I am particularly drawn to {companyName}’s commitment to {initialParagraph}.
+I am eager to apply my skills and knowledge to contribute to {companyName}'s mission. 
+
+Refine this to sound better while still keeping the same ideas and make the total length between 360 to 380 characters. Feel free to elaborate
+upon what's given to make is sound professional and interesting, even if that means adding more than is given to make sure the the paragraph is not too short
+and meets the 360 to 380 character count. The paragraph should be ready for me to paste into my cover letter, i.e. there should not be additional parts i needt to add or edit"""
+
+
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel("gemini-1.5-flash")
+response = model.generate_content(initialPrompt)
+edittedParagraph = response.text
 
 # Final Formatted Output
-finalOutput = f"""Raymond Umbas
+final_cv = f"""Raymond Umbas
 (760) 717-6641
 raymond.umbas@gmail.com
 
@@ -34,7 +55,7 @@ My passion for technology began early, driving me to pursue a degree in computer
 
 What distinguishes me as a candidate is my ability to apply technical skills with a perspective focused on user experience. With a background in the service industry, I have honed my ability to anticipate and meet customer needs effectively. I am committed to creating software that not only meets technical requirements but also delivers a seamless and positive user experience.
 
-I am particularly drawn to {companyName}'s commitment to. Your commitment …. I am eager to apply my skills and knowledge to contribute to {companyName} mission.
+{edittedParagraph}
 
 In conclusion, I am enthusiastic about the opportunity to join {companyName} as a {positionTitle}. With my technical expertise, passion for technology, and strong work ethic, I believe I would be a valuable addition to your team. I look forward to the possibility of discussing how my dedication and eagerness to learn can contribute to your organization.
 
@@ -45,9 +66,19 @@ Sincerely,
 Raymond Umbas
 """
 
-# Initialize PDF object
-pdf = FPDF(orientation="P", unit="mm", format="A4")
+
+# Initialize the PDF object
+pdf = FPDF()
 pdf.add_page()
-pdf.set_font("Times", size=12)
+pdf.set_font("Arial", size=12)
+
+# Write the content (handles multiline text)
+pdf.multi_cell(0, 8, final_cv)
+
+# Save the PDF
+output_path = "RaymondUmbasCV{companyName}.pdf"
+pdf.output(output_path)
+
+print(f"PDF saved as {output_path}")
 
 

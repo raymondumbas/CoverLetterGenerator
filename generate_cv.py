@@ -16,6 +16,7 @@ print("")
 # Get Company Name
 print("Enter company name:")
 companyName = input()
+print("")
 
 
 # Get Current Date
@@ -39,6 +40,32 @@ genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-1.5-flash")
 response = model.generate_content(initialPrompt)
 edittedParagraph = response.text.strip()
+
+
+while True:
+    print("Here is the current paragraph: \n")
+    print(edittedParagraph) 
+    print("")
+    print("""
+          Would you like to make any changes?
+          1: Manual Change
+          2: Enter a prompt
+          3: Nope, looks good to me
+          """)
+    response = input()
+
+    match response:
+        case 1:
+            print("Enter what you want to change the paragraph to.")
+            edittedParagraph = input()
+        case 2:
+            print("Enter the prompt you want to run with the current paragraph.")
+        case 3:
+            print("Continuing to final output.")
+            break;
+        case _:
+            print("Please select either 1, 2, or 3. ")
+
 
 # Final Formatted Output
 final_cv = f"""Raymond Umbas

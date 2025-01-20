@@ -1,6 +1,6 @@
 from datetime import datetime
-from fpdf import FPDF
-import google.generativeai as genai
+from fpdf import FPDF 
+import google.generativeai as genai 
 
 with open("api_key.txt", "r") as file:
     api_key = file.read().strip()  # Strip removes any extra whitespace or newlines
@@ -54,17 +54,18 @@ while True:
           """)
     response = input()
 
-    match response:
-        case 1:
-            print("Enter what you want to change the paragraph to.")
-            edittedParagraph = input()
-        case 2:
-            print("Enter the prompt you want to run with the current paragraph.")
-        case 3:
-            print("Continuing to final output.")
-            break;
-        case _:
-            print("Please select either 1, 2, or 3. ")
+    if response == 1:
+        print("Enter what you want to change the paragraph to.")
+        edittedParagraph = input()
+    elif response == 2:
+        print("Enter the prompt you want to run with the current paragraph.")
+        prompt = input()
+        edittedParagraph = model.generate_content(prompt)
+    elif response == 3:
+        print("Continuing to final output.")
+        break
+    else:    
+        print("Please select either 1, 2, or 3. ")
 
 
 # Final Formatted Output
